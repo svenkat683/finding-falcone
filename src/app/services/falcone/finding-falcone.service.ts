@@ -12,5 +12,36 @@ import { catchError, tap, map, find } from "rxjs/operators";
 })
 export class FindingFalconeService {
   apiBaseUrl = environment.baseUrl;
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  getPlanets(): Observable<Planet[]> {
+    return this.http.get<Planet[]>(this.apiBaseUrl + "planets");
+  }
+
+  getVehicles(): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.apiBaseUrl + "vehicles");
+  }
+
+  getToken(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json"
+      })
+    };
+    return this.http.post(this.apiBaseUrl + "token", "", httpOptions);
+  }
+
+  findngFalcone(falconeFindRequest: FindFalconeRequest): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json",
+        "Content-type": "application/json"
+      })
+    };
+    return this.http.post(
+      this.apiBaseUrl + find,
+      falconeFindRequest,
+      httpOptions
+    );
+  }
 }
