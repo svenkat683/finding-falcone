@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewChecked,
+  ChangeDetectorRef
+} from "@angular/core";
 import { FormGroup, FormControl, FormBuilder } from "@angular/forms";
 import { VehicleIntf } from "src/app/models/vehicle";
 import { PlanetIntf } from "src/app/models/planet";
@@ -9,7 +17,7 @@ import { SelectedDestination } from "src/app/models/selectedDestination";
   templateUrl: "./destination.component.html",
   styleUrls: ["./destination.component.css"]
 })
-export class DestinationComponent implements OnInit {
+export class DestinationComponent implements OnInit, AfterViewChecked {
   @Input() vehicles: VehicleIntf[];
 
   @Input() planets: PlanetIntf[];
@@ -19,7 +27,10 @@ export class DestinationComponent implements OnInit {
   @Output() selectedDestination = new EventEmitter<SelectedDestination>();
 
   selectedPlanetName: string;
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private changeDetector: ChangeDetectorRef
+  ) {}
   destinationFormGroup: FormGroup;
   ngOnInit() {
     this.destinationFormGroup = this.formBuilder.group({
@@ -29,6 +40,9 @@ export class DestinationComponent implements OnInit {
     });
   }
 
+  ngAfterViewChecked() {
+    this.changeDetector.detectChanges();
+  }
   onSelectVehicle() {
     const destination = new SelectedDestination(
       this.destinationIndex,
