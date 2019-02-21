@@ -1,0 +1,47 @@
+<div class="destinationWrapper">
+  <form [formGroup]="destinationFormGroup">
+    <div class="destinations">
+      <div class="uk-form-controls">
+        <select
+          class="uk-select"
+          formControlName="planetName"
+          (change)="onChanged($event)"
+        >
+          <option value="">Select</option>
+          <option disabled value="">Select planet</option>
+          <!-- <option
+            *ngFor="let planet of planets; let planetIndex = index"
+            [hidden]="planet.selected"
+            [value]="planetIndex"
+            >{{ planet.name }} -->
+          <!-- </option> -->
+        </select>
+        <input
+          *ngIf="selectedPlanetName"
+          class="form-control"
+          type="text"
+          formControlName="selectedPlanetName"
+          disabled
+        />
+      </div>
+
+      <div *ngIf="destinationFormGroup.value.planetName">
+        <div class="vehicles" *ngFor="let vehicle of vehicles">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="vehicle"
+            id="{{ vehicle.name + destinationNumber }}"
+            value="{{ vehicle.name }}"
+            (change)="processDestination()"
+          />
+          <label
+            class="form-check-label"
+            for="{{ vehicle.name + destinationNumber }}"
+            >{{ vehicle.name }} ({{ vehicle.total_no }})</label
+          >
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
