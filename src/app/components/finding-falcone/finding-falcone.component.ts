@@ -12,6 +12,7 @@ import { SelectedDestination } from "src/app/models/selectedDestination";
 export class FindingFalconeComponent implements OnInit {
   planets: PlanetIntf[];
   vehicles: VehicleIntf[];
+  availablePlanents: PlanetIntf[];
   token: string;
   selectedDestinations: SelectedDestination[] = [];
   constructor(private findFacloneHttp: FindingFalconeService) {}
@@ -26,7 +27,8 @@ export class FindingFalconeComponent implements OnInit {
     this.findFacloneHttp.getPlanets().subscribe(
       (planets: PlanetIntf[]) => {
         console.log("Planets", planets);
-        this.planets = planets;
+        this.planets = [...planets];
+        this.availablePlanents = [...planets];
       },
       error => {
         console.error(error);
@@ -56,5 +58,30 @@ export class FindingFalconeComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  onSelectedDestination(selectedDestination: SelectedDestination) {
+    this.organizeSelectedDestinations(selectedDestination);
+    console.log("selectedDest", this.selectedDestinations);
+  }
+
+  organizeSelectedDestinations(selectedDestination: SelectedDestination) {
+    if (
+      this.selectedDestinations.find(
+        destination =>
+          destination.destinationNumber == selectedDestination.destinationNumber
+      )
+    ) {
+      this.selectedDestinations = this.selectedDestinations.filter(
+        destination =>
+          destination.destinationNumber !==
+          selectedDestination.destinationNumber
+      );
+    }
+
+    this.selectedDestinations = [
+      ...this.selectedDestinations,
+      selectedDestination
+    ];
   }
 }
