@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { FindingFalconeService } from "../../services/falcone/finding-falcone.service";
 import { PlanetIntf } from "src/app/models/planet";
 import { VehicleIntf } from "src/app/models/vehicle";
+import { FindFalconeRequest } from "src/app/models/findingFolconeRequest";
 import { SelectedDestination } from "src/app/models/selectedDestination";
 
 @Component({
@@ -16,7 +18,10 @@ export class FindingFalconeComponent implements OnInit {
   token: string;
   selectedDestinations: SelectedDestination[] = [];
   timeToReachDestination: number = 0;
-  constructor(private findFacloneHttp: FindingFalconeService) {}
+  constructor(
+    private findFacloneHttp: FindingFalconeService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getPlanets();
@@ -51,9 +56,8 @@ export class FindingFalconeComponent implements OnInit {
 
   getToken() {
     this.findFacloneHttp.getToken().subscribe(
-      (token: string) => {
-        console.log("Token", token);
-        this.token = token;
+      (response: any) => {
+        this.token = response.token;
       },
       error => {
         console.log(error);
@@ -115,5 +119,26 @@ export class FindingFalconeComponent implements OnInit {
     this.availablePlanets = this.availablePlanets.filter(
       planet => planet.name !== selectedDestination.planetName
     );
+  }
+
+  findFalcone() {
+    let findFalconeRequest: FindFalconeRequest = new FindFalconeRequest();
+    let planet_names: Array<string> = [];
+    let vehicle_names: Array<string> = [];
+    this.selectedDestinations.map((destination: SelectedDestination) => {
+      planet_names.push(destination.planetName);
+      vehicle_names.push(destination.vehicleName);
+    });
+    findFalconeRequest.token = this.token;
+    findFalconeRequest.planet_names = [...planet_names];
+    findFalconeRequest.vehicle_names = [...vehicle_names];
+
+    console.log("findFalconeRequest: ", this.token);
+
+    this.findFacloneHttp
+      .findngFalcone(findFalconeRequest)
+      .subscribe((findFalconeResponse: any) => {
+        console.log("findFalconeResponse", findFalconeResponse);
+      });
   }
 }

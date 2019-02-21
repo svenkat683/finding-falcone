@@ -1,4 +1,4 @@
-<div class="uk-container ms-margin-75">
+<div class="uk-container ms-margin-75 ms-margin-bottom-80">
   <div
     class="title uk-flex uk-flex-center uk-flex-middle uk-margin-top"
     uk-margin
@@ -13,7 +13,7 @@
     </div>
   </div>
   <div
-    class="destinationsWrapper uk-flex uk-flex-center  uk-flex-row uk-flex-around"
+    class="destinationsWrapper uk-flex uk-flex-center  uk-flex-row uk-flex-around uk-margin"
   >
     <div class="destination uk-margin-right">
       <div class="uk-h5">
@@ -63,5 +63,15 @@
 
   <div class="sub-title uk-flex uk-flex-center uk-flex-middle" uk-margin>
     <div class="uk-h3">Time taken: {{ timeToReachDestination }}</div>
+  </div>
+  <div
+    class="findFalconeButton uk-margin uk-flex uk-flex-center uk-flex-middle"
+    *ngIf="selectedDestinations.length > 3"
+  >
+    <p uk-margin>
+      <button class="uk-button uk-button-primary" (click)="findFalcone($event)">
+        Find Falcone
+      </button>
+    </p>
   </div>
 </div>

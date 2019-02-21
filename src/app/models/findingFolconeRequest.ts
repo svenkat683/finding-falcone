@@ -1,5 +1,5 @@
-export interface FindFalconeRequestIntf {
+export class FindFalconeRequest {
   token: string;
-  planetNames: string[];
-  vehicleNames: string[];
+  planet_names: string[];
+  vehicle_names: string[];
 }
