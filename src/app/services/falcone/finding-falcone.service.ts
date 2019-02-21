@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Planet } from "../../models/planet";
-import { Vehicle } from "../../models/vehicle";
+import { PlanetIntf } from "../../models/planet";
+import { VehicleIntf } from "../../models/vehicle";
 import { FindFalconeRequest } from "../../models/findingFolconeRequest";
 import { environment } from "../../../environments/environment";
 import { Observable, throwError } from "rxjs";
@@ -14,12 +14,12 @@ export class FindingFalconeService {
   apiBaseUrl = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
-  getPlanets(): Observable<Planet[]> {
-    return this.http.get<Planet[]>(this.apiBaseUrl + "planets");
+  getPlanets(): Observable<PlanetIntf[]> {
+    return this.http.get<PlanetIntf[]>(this.apiBaseUrl + "planets");
   }
 
-  getVehicles(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.apiBaseUrl + "vehicles");
+  getVehicles(): Observable<VehicleIntf[]> {
+    return this.http.get<VehicleIntf[]>(this.apiBaseUrl + "vehicles");
   }
 
   getToken(): Observable<any> {

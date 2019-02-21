@@ -1,4 +1,4 @@
-export class Vehicle {
+export interface VehicleIntf {
   name: string;
   totalNo: number;
   maxDistance: number;

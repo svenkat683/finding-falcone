@@ -27,6 +27,7 @@
             formControlName="vehicle"
             id="{{ vehicle.name + destinationNumber }}"
             value="{{ vehicle.name }}"
+            (change)="onSelectDestination($event)"
           />
           <label
             class="form-check-label"

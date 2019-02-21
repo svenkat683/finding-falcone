@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup, FormControl, FormBuilder } from "@angular/forms";
-import { Vehicle } from "src/app/models/vehicle";
-import { Planet } from "src/app/models/planet";
+import { VehicleIntf } from "src/app/models/vehicle";
+import { PlanetIntf } from "src/app/models/planet";
 
 @Component({
   selector: "app-destination",
@@ -9,11 +9,13 @@ import { Planet } from "src/app/models/planet";
   styleUrls: ["./destination.component.css"]
 })
 export class DestinationComponent implements OnInit {
-  @Input() vehicles: Vehicle[];
+  @Input() vehicles: VehicleIntf[];
 
-  @Input() planets: Planet[];
+  @Input() planets: PlanetIntf[];
 
   @Input() destinationIndex: number;
+
+  selectedPlanetName: string;
   constructor(private formBuilder: FormBuilder) {}
   destinationFormGroup: FormGroup;
   ngOnInit() {
@@ -22,5 +24,17 @@ export class DestinationComponent implements OnInit {
       vehicle: [""],
       selectedPlanet: [""]
     });
+  }
+
+  onSelectDestination() {
+    console.log(
+      "Selected Planet",
+      this.destinationFormGroup.value.selectedPlanet
+    );
+    console.log("Selected vehicle", this.destinationFormGroup.value.vehicle);
+    console.log(
+      "Selected PlanetName",
+      this.destinationFormGroup.value.planetName
+    );
   }
 }
