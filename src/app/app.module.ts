@@ -4,9 +4,10 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FindingFalconeComponent } from "./components/finding-falcone/finding-falcone.component";
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, FindingFalconeComponent],
+  declarations: [AppComponent, FindingFalconeComponent, HeaderComponent],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
