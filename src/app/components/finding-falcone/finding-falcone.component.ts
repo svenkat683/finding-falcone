@@ -15,6 +15,7 @@ export class FindingFalconeComponent implements OnInit {
   availablePlanents: PlanetIntf[];
   token: string;
   selectedDestinations: SelectedDestination[] = [];
+  timeToReachDestination: number = 0;
   constructor(private findFacloneHttp: FindingFalconeService) {}
 
   ngOnInit() {
@@ -63,6 +64,7 @@ export class FindingFalconeComponent implements OnInit {
   onSelectedDestination(selectedDestination: SelectedDestination) {
     this.organizeSelectedDestinations(selectedDestination);
     this.organizeAvailableVehicles(selectedDestination);
+    this.timeToReachDestination = this.getTimeTakenToReachDestination();
     console.log("selectedDest", this.vehicles);
   }
 
@@ -93,5 +95,19 @@ export class FindingFalconeComponent implements OnInit {
         vehicle.total_no--;
       }
     });
+  }
+
+  getTimeTakenToReachDestination() {
+    let timeTaken: number = 0;
+    this.selectedDestinations.map((destination: SelectedDestination) => {
+      const planet = this.planets.find(
+        planet => planet.name === destination.planetName
+      );
+      const vehicle = this.vehicles.find(
+        vehicle => vehicle.name === destination.vehicleName
+      );
+      timeTaken += planet.distance / vehicle.speed;
+    });
+    return timeTaken;
   }
 }
