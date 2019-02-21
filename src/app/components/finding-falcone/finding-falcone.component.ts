@@ -62,7 +62,8 @@ export class FindingFalconeComponent implements OnInit {
 
   onSelectedDestination(selectedDestination: SelectedDestination) {
     this.organizeSelectedDestinations(selectedDestination);
-    console.log("selectedDest", this.selectedDestinations);
+    this.organizeAvailablePlanets(selectedDestination);
+    console.log("selectedDest", this.vehicles);
   }
 
   organizeSelectedDestinations(selectedDestination: SelectedDestination) {
@@ -83,5 +84,14 @@ export class FindingFalconeComponent implements OnInit {
       ...this.selectedDestinations,
       selectedDestination
     ];
+  }
+
+  organizeAvailablePlanets(selectedDestination: SelectedDestination) {
+    const vehicleName: string = selectedDestination.vehicleName;
+    this.vehicles.map((vehicle: VehicleIntf) => {
+      if (vehicle.name === vehicleName && vehicle.total_no > 0) {
+        vehicle.total_no--;
+      }
+    });
   }
 }

@@ -1,6 +1,6 @@
 export interface VehicleIntf {
   name: string;
-  totalNo: number;
-  maxDistance: number;
+  total_no: number;
+  max_distance: number;
   speed: number;
 }
