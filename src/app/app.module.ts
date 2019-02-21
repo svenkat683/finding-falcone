@@ -9,6 +9,7 @@ import { FindingFalconeComponent } from "./components/finding-falcone/finding-fa
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { DestinationComponent } from "./components/destination/destination.component";
+import { ResultComponent } from './components/result/result.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DestinationComponent } from "./components/destination/destination.compo
     FindingFalconeComponent,
     HeaderComponent,
     FooterComponent,
-    DestinationComponent
+    DestinationComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,

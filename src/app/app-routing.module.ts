@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { FindingFalconeComponent } from "./components/finding-falcone/finding-falcone.component";
+import { ResultComponent } from "./components/result/result.component";
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: "finding-falcone",
     component: FindingFalconeComponent
+  },
+  {
+    path: "result",
+    component: ResultComponent
   },
   {
     path: "**",

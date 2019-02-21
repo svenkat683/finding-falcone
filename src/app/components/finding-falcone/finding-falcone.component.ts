@@ -5,6 +5,8 @@ import { PlanetIntf } from "src/app/models/planet";
 import { VehicleIntf } from "src/app/models/vehicle";
 import { FindFalconeRequest } from "src/app/models/findingFolconeRequest";
 import { SelectedDestination } from "src/app/models/selectedDestination";
+import { MessageService } from "src/app/services/message/message.service";
+import { FindFalconeResponseInf } from "src/app/models/findFalconeResponse";
 
 @Component({
   selector: "app-finding-falcone",
@@ -20,7 +22,8 @@ export class FindingFalconeComponent implements OnInit {
   timeToReachDestination: number = 0;
   constructor(
     private findFacloneHttp: FindingFalconeService,
-    private router: Router
+    private router: Router,
+    public messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -135,10 +138,9 @@ export class FindingFalconeComponent implements OnInit {
 
     console.log("findFalconeRequest: ", this.token);
 
-    this.findFacloneHttp
-      .findngFalcone(findFalconeRequest)
-      .subscribe((findFalconeResponse: any) => {
-        console.log("findFalconeResponse", findFalconeResponse);
-      });
+    this.messageService.setFindFalconeRequest(findFalconeRequest);
+    this.messageService.setTimeTaken(this.timeToReachDestination);
+    this.router.navigate(["/result"]);
+    console.log("findFalconeResponse", findFalconeRequest);
   }
 }

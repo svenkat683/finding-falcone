@@ -1,0 +1,35 @@
+<div
+  class="resultWrapper  uk-flex uk-flex-center uk-flex-column uk-flex-middle "
+>
+  <div
+    class=" uk-flex uk-flex-center uk-flex-column uk-flex-middle "
+    *ngIf="planetFoundStatus === 'success'"
+    uk-margin
+  >
+    <div class="uk-h3">
+      Success! Congratulations on Finding Falcone. King Shan is mighty pleased.
+    </div>
+    <div class="uk-h4">Total time taken: {{ timeTakenToFindFalcone }}</div>
+    <div class="uk-h4">Planet Found: {{ planetFound }}</div>
+  </div>
+  <div
+    class="failureMessage uk-flex uk-flex-center uk-flex-column uk-flex-middle "
+    *ngIf="planetFoundStatus === 'false'"
+  >
+    Bad luck. Give it one more try.
+  </div>
+
+  <div
+    class="findFalconeButton uk-margin uk-flex uk-flex-center uk-flex-middle"
+  >
+    <p uk-margin>
+      <a
+        [routerLink]="['/finding-falcone']"
+        class="uk-button uk-button-primary"
+        type="button"
+      >
+        Start again
+      </a>
+    </p>
+  </div>
+</div>
