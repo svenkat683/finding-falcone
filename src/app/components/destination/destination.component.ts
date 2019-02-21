@@ -25,7 +25,7 @@ export class DestinationComponent implements OnInit {
     this.destinationFormGroup = this.formBuilder.group({
       planetName: [""],
       vehicle: [""],
-      selectedPlanet: [""]
+      selectedPlanetName: [""]
     });
   }
 
@@ -35,6 +35,7 @@ export class DestinationComponent implements OnInit {
       this.destinationFormGroup.value.planetName,
       this.destinationFormGroup.value.vehicle
     );
+    this.selectedPlanetName = this.destinationFormGroup.value.planetName;
     this.destinationFormGroup.patchValue({
       selectedPlanetName: this.destinationFormGroup.value.planetName
     });

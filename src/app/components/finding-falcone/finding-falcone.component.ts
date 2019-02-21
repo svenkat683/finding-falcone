@@ -12,7 +12,7 @@ import { SelectedDestination } from "src/app/models/selectedDestination";
 export class FindingFalconeComponent implements OnInit {
   planets: PlanetIntf[];
   vehicles: VehicleIntf[];
-  availablePlanents: PlanetIntf[];
+  availablePlanets: PlanetIntf[];
   token: string;
   selectedDestinations: SelectedDestination[] = [];
   timeToReachDestination: number = 0;
@@ -29,7 +29,7 @@ export class FindingFalconeComponent implements OnInit {
       (planets: PlanetIntf[]) => {
         console.log("Planets", planets);
         this.planets = [...planets];
-        this.availablePlanents = [...planets];
+        this.availablePlanets = [...planets];
       },
       error => {
         console.error(error);
@@ -64,6 +64,9 @@ export class FindingFalconeComponent implements OnInit {
   onSelectedDestination(selectedDestination: SelectedDestination) {
     this.organizeSelectedDestinations(selectedDestination);
     this.organizeAvailableVehicles(selectedDestination);
+    console.log("before: ", this.availablePlanets);
+    this.organizeAvailablePlanets(selectedDestination);
+    console.log("After: ", this.availablePlanets);
     this.timeToReachDestination = this.getTimeTakenToReachDestination();
     console.log("selectedDest", this.vehicles);
   }
@@ -109,5 +112,11 @@ export class FindingFalconeComponent implements OnInit {
       timeTaken += planet.distance / vehicle.speed;
     });
     return timeTaken;
+  }
+
+  organizeAvailablePlanets(selectedDestination: SelectedDestination) {
+    this.availablePlanets = this.availablePlanets.filter(
+      planet => planet.name !== selectedDestination.planetName
+    );
   }
 }
