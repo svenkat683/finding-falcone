@@ -28,10 +28,12 @@
             id="{{ vehicle.name + destinationNumber }}"
             value="{{ vehicle.name }}"
             (change)="onSelectVehicle($event)"
+            [attr.disabled]="vehicle.total_no !== 0 ? null : ''"
           />
           <label
             class="form-check-label"
             for="{{ vehicle.name + destinationNumber }}"
+            disabled
             >{{ vehicle.name }} ({{ vehicle.total_no }})</label
           >
         </div>

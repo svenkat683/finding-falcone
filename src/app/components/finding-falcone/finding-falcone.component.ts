@@ -64,11 +64,8 @@ export class FindingFalconeComponent implements OnInit {
   onSelectedDestination(selectedDestination: SelectedDestination) {
     this.organizeSelectedDestinations(selectedDestination);
     this.organizeAvailableVehicles(selectedDestination);
-    console.log("before: ", this.availablePlanets);
     this.organizeAvailablePlanets(selectedDestination);
-    console.log("After: ", this.availablePlanets);
     this.timeToReachDestination = this.getTimeTakenToReachDestination();
-    console.log("selectedDest", this.vehicles);
   }
 
   organizeSelectedDestinations(selectedDestination: SelectedDestination) {
