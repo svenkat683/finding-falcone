@@ -1,3 +1,59 @@
-<p>
-  finding-falcone works!
-</p>
+<div class="uk-container ms-margin-75">
+  <div
+    class="title uk-flex uk-flex-center uk-flex-middle uk-margin-top"
+    uk-margin
+  >
+    <h1 class="uk-h1">
+      Finding Falcone
+    </h1>
+  </div>
+  <div class="sub-title uk-flex uk-flex-center uk-flex-middle" uk-margin>
+    <div class="uk-h3">
+      Select planet you want to search in:
+    </div>
+  </div>
+  <div
+    class="destinationsWrapper uk-flex uk-flex-center  uk-flex-row uk-flex-around"
+  >
+    <div class="destination uk-margin-right">
+      <div class="uk-h5">
+        Destination-1
+      </div>
+      <app-destination
+        [destinationIndex]="1"
+        [planets]="planets"
+        [vehicles]="vehicles"
+      ></app-destination>
+    </div>
+    <div class="destination uk-margin-right">
+      <div class="uk-h5">
+        Destination-2
+      </div>
+      <app-destination
+        [destinationIndex]="2"
+        [planets]="planets"
+        [vehicles]="vehicles"
+      ></app-destination>
+    </div>
+    <div class="destination uk-margin-right">
+      <div class="uk-h5">
+        Destination-3
+      </div>
+      <app-destination
+        [destinationIndex]="3"
+        [planets]="planets"
+        [vehicles]="vehicles"
+      ></app-destination>
+    </div>
+    <div class="destination uk-margin-right">
+      <div class="uk-h5">
+        Destination-4
+      </div>
+      <app-destination
+        [destinationIndex]="4"
+        [planets]="planets"
+        [vehicles]="vehicles"
+      ></app-destination>
+    </div>
+  </div>
+</div>

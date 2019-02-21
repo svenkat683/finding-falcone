@@ -5,16 +5,10 @@
         <select
           class="uk-select"
           formControlName="planetName"
-          (change)="onChanged($event)"
+          *ngIf="!selectedPlanetName"
         >
-          <option value="">Select</option>
-          <option disabled value="">Select planet</option>
-          <!-- <option
-            *ngFor="let planet of planets; let planetIndex = index"
-            [hidden]="planet.selected"
-            [value]="planetIndex"
-            >{{ planet.name }} -->
-          <!-- </option> -->
+          <option disabled hidden value="">Select planet</option>
+          <option *ngFor="let planet of planets">{{ planet.name }} </option>
         </select>
         <input
           *ngIf="selectedPlanetName"
@@ -25,7 +19,7 @@
         />
       </div>
 
-      <div *ngIf="destinationFormGroup.value.planetName">
+      <div class="uk-margin" *ngIf="destinationFormGroup.value.planetName">
         <div class="vehicles" *ngFor="let vehicle of vehicles">
           <input
             class="form-check-input"
@@ -33,7 +27,6 @@
             formControlName="vehicle"
             id="{{ vehicle.name + destinationNumber }}"
             value="{{ vehicle.name }}"
-            (change)="processDestination()"
           />
           <label
             class="form-check-label"
