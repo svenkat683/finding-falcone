@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { PlanetIntf } from "../../models/planet";
 import { VehicleIntf } from "../../models/vehicle";
-import { FindFalconeRequest } from "../../models/findingFolconeRequest";
+import { FindFalconeRequestIntf } from "../../models/findingFolconeRequest";
 import { environment } from "../../../environments/environment";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap, map, find } from "rxjs/operators";
@@ -31,7 +31,7 @@ export class FindingFalconeService {
     return this.http.post(this.apiBaseUrl + "token", "", httpOptions);
   }
 
-  findngFalcone(falconeFindRequest: FindFalconeRequest): Observable<any> {
+  findngFalcone(falconeFindRequest: FindFalconeRequestIntf): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: "application/json",

@@ -1,5 +1,7 @@
-export interface SelectedDestination {
-  destinationNumber: number;
-  planetName: string;
-  vehicleName: string;
+export class SelectedDestination {
+  constructor(
+    public destinationNumber: number,
+    public planetName: string,
+    public vehicleName: string
+  ) {}
 }

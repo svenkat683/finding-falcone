@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, FormBuilder } from "@angular/forms";
 import { VehicleIntf } from "src/app/models/vehicle";
 import { PlanetIntf } from "src/app/models/planet";
+import { SelectedDestination } from "src/app/models/selectedDestination";
 
 @Component({
   selector: "app-destination",
@@ -15,6 +16,8 @@ export class DestinationComponent implements OnInit {
 
   @Input() destinationIndex: number;
 
+  @Output() selectedDestination = new EventEmitter<SelectedDestination>();
+
   selectedPlanetName: string;
   constructor(private formBuilder: FormBuilder) {}
   destinationFormGroup: FormGroup;
@@ -26,15 +29,19 @@ export class DestinationComponent implements OnInit {
     });
   }
 
-  onSelectDestination() {
-    console.log(
-      "Selected Planet",
-      this.destinationFormGroup.value.selectedPlanet
+  onSelectVehicle() {
+    const destination = new SelectedDestination(
+      this.destinationIndex,
+      this.destinationFormGroup.value.planetName,
+      this.destinationFormGroup.value.vehicle
     );
-    console.log("Selected vehicle", this.destinationFormGroup.value.vehicle);
-    console.log(
-      "Selected PlanetName",
-      this.destinationFormGroup.value.planetName
-    );
+    this.destinationFormGroup.patchValue({
+      selectedPlanetName: this.destinationFormGroup.value.planetName
+    });
+    this.emitSelectDestination(destination);
+  }
+
+  emitSelectDestination(selectedDestination: SelectedDestination) {
+    this.selectedDestination.emit(selectedDestination);
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FindingFalconeService } from "../../services/falcone/finding-falcone.service";
-import { Planet } from "src/app/models/planet";
-import { Vehicle } from "src/app/models/vehicle";
+import { PlanetIntf } from "src/app/models/planet";
+import { VehicleIntf } from "src/app/models/vehicle";
+import { SelectedDestination } from "src/app/models/selectedDestination";
 
 @Component({
   selector: "app-finding-falcone",
@@ -9,9 +10,10 @@ import { Vehicle } from "src/app/models/vehicle";
   styleUrls: ["./finding-falcone.component.css"]
 })
 export class FindingFalconeComponent implements OnInit {
-  planets: Planet[];
-  vehicles: Vehicle[];
+  planets: PlanetIntf[];
+  vehicles: VehicleIntf[];
   token: string;
+  selectedDestinations: SelectedDestination[] = [];
   constructor(private findFacloneHttp: FindingFalconeService) {}
 
   ngOnInit() {
@@ -22,7 +24,7 @@ export class FindingFalconeComponent implements OnInit {
 
   getPlanets() {
     this.findFacloneHttp.getPlanets().subscribe(
-      (planets: Planet[]) => {
+      (planets: PlanetIntf[]) => {
         console.log("Planets", planets);
         this.planets = planets;
       },
@@ -34,7 +36,7 @@ export class FindingFalconeComponent implements OnInit {
 
   getVehicles() {
     this.findFacloneHttp.getVehicles().subscribe(
-      (vehicles: Vehicle[]) => {
+      (vehicles: VehicleIntf[]) => {
         console.log("vehicles", vehicles);
         this.vehicles = vehicles;
       },
