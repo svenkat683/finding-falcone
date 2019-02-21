@@ -62,7 +62,7 @@ export class FindingFalconeComponent implements OnInit {
 
   onSelectedDestination(selectedDestination: SelectedDestination) {
     this.organizeSelectedDestinations(selectedDestination);
-    this.organizeAvailablePlanets(selectedDestination);
+    this.organizeAvailableVehicles(selectedDestination);
     console.log("selectedDest", this.vehicles);
   }
 
@@ -86,7 +86,7 @@ export class FindingFalconeComponent implements OnInit {
     ];
   }
 
-  organizeAvailablePlanets(selectedDestination: SelectedDestination) {
+  organizeAvailableVehicles(selectedDestination: SelectedDestination) {
     const vehicleName: string = selectedDestination.vehicleName;
     this.vehicles.map((vehicle: VehicleIntf) => {
       if (vehicle.name === vehicleName && vehicle.total_no > 0) {
