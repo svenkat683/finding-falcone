@@ -1,16 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { FindingFalconeComponent } from "./finding-falcone.component";
+import { DestinationComponent } from "../destination/destination.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { FindingFalconeComponent } from './finding-falcone.component';
-
-describe('FindingFalconeComponent', () => {
+describe("FindingFalconeComponent", () => {
   let component: FindingFalconeComponent;
   let fixture: ComponentFixture<FindingFalconeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FindingFalconeComponent ]
-    })
-    .compileComponents();
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
+      declarations: [FindingFalconeComponent, DestinationComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +27,7 @@ describe('FindingFalconeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
