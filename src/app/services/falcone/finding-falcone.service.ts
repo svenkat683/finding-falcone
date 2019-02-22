@@ -5,7 +5,8 @@ import { VehicleIntf } from "../../models/vehicle";
 import { FindFalconeRequest } from "../../models/findingFolconeRequest";
 import { environment } from "../../../environments/environment";
 import { Observable, throwError } from "rxjs";
-import { catchError, tap, map, find } from "rxjs/operators";
+import { Token } from "@angular/compiler";
+import { FindFalconeResponseInf } from "src/app/models/findFalconeResponse";
 
 @Injectable({
   providedIn: "root"
@@ -22,26 +23,28 @@ export class FindingFalconeService {
     return this.http.get<VehicleIntf[]>(this.apiBaseUrl + "vehicles");
   }
 
-  getToken(): Observable<any> {
+  getToken(): Observable<Token> {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: "application/json"
       })
     };
-    return this.http.post(this.apiBaseUrl + "token", "", httpOptions);
+    return this.http.post<Token>(this.apiBaseUrl + "token", "", httpOptions);
   }
 
-  findngFalcone(falconeFindRequest: FindFalconeRequest): Observable<any> {
-    const httpOptions = {
+  findngFalcone(
+    falconeFindRequest: FindFalconeRequest
+  ): Observable<FindFalconeResponseInf> {
+    const httpHeaders = {
       headers: new HttpHeaders({
         Accept: "application/json",
         "Content-type": "application/json"
       })
     };
-    return this.http.post(
+    return this.http.post<FindFalconeResponseInf>(
       this.apiBaseUrl + "find",
       falconeFindRequest,
-      httpOptions
+      httpHeaders
     );
   }
 }
