@@ -19,7 +19,7 @@ export class FindingFalconeComponent implements OnInit {
   availablePlanets: PlanetIntf[];
   token: string;
   selectedDestinations: SelectedDestination[] = [];
-  timeToReachDestination: number = 0;
+  timeToReachDestination = 0;
   constructor(
     private findFacloneHttp: FindingFalconeService,
     private router: Router,
@@ -39,7 +39,7 @@ export class FindingFalconeComponent implements OnInit {
         this.planets = [...planets];
         this.availablePlanets = [...planets];
       },
-      error => {
+      (error) => {
         console.error(error);
       }
     );
@@ -51,7 +51,7 @@ export class FindingFalconeComponent implements OnInit {
         console.log("vehicles", vehicles);
         this.vehicles = vehicles;
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
@@ -62,7 +62,7 @@ export class FindingFalconeComponent implements OnInit {
       (response: any) => {
         this.token = response.token;
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
@@ -78,12 +78,13 @@ export class FindingFalconeComponent implements OnInit {
   organizeSelectedDestinations(selectedDestination: SelectedDestination) {
     if (
       this.selectedDestinations.find(
-        destination =>
-          destination.destinationNumber == selectedDestination.destinationNumber
+        (destination) =>
+          destination.destinationNumber ===
+          selectedDestination.destinationNumber
       )
     ) {
       this.selectedDestinations = this.selectedDestinations.filter(
-        destination =>
+        (destination) =>
           destination.destinationNumber !==
           selectedDestination.destinationNumber
       );
@@ -105,13 +106,13 @@ export class FindingFalconeComponent implements OnInit {
   }
 
   getTimeTakenToReachDestination() {
-    let timeTaken: number = 0;
+    let timeTaken = 0;
     this.selectedDestinations.map((destination: SelectedDestination) => {
       const planet = this.planets.find(
-        planet => planet.name === destination.planetName
+        (singlePlanet) => singlePlanet.name === destination.planetName
       );
       const vehicle = this.vehicles.find(
-        vehicle => vehicle.name === destination.vehicleName
+        (singleVehicle) => singleVehicle.name === destination.vehicleName
       );
       timeTaken += planet.distance / vehicle.speed;
     });
@@ -120,14 +121,14 @@ export class FindingFalconeComponent implements OnInit {
 
   organizeAvailablePlanets(selectedDestination: SelectedDestination) {
     this.availablePlanets = this.availablePlanets.filter(
-      planet => planet.name !== selectedDestination.planetName
+      (planet) => planet.name !== selectedDestination.planetName
     );
   }
 
   findFalcone() {
-    let findFalconeRequest: FindFalconeRequest = new FindFalconeRequest();
-    let planet_names: Array<string> = [];
-    let vehicle_names: Array<string> = [];
+    const findFalconeRequest: FindFalconeRequest = new FindFalconeRequest();
+    const planet_names: Array<string> = [];
+    const vehicle_names: Array<string> = [];
     this.selectedDestinations.map((destination: SelectedDestination) => {
       planet_names.push(destination.planetName);
       vehicle_names.push(destination.vehicleName);
