@@ -1,7 +1,7 @@
 import { TestBed, getTestBed } from "@angular/core/testing";
 
 import { MessageService } from "./message.service";
-import { FindFalconeRequest } from "src/app/models/findingFolconeRequest";
+import { FindFalconeRequest } from "src/app/models/findingFalconeRequest";
 
 describe("MessageService", () => {
   let injector: TestBed;
@@ -13,13 +13,12 @@ describe("MessageService", () => {
   });
 
   it("should be created", () => {
-    const service: MessageService = TestBed.get(MessageService);
     expect(service).toBeTruthy();
   });
 
   describe("#setFindFalconeRequest()", () => {
     it("should call setFindFalconeRequest() with findFalconeRequest as parameter", () => {
-      let dummyFindFalconeRequest: FindFalconeRequest = {
+      const dummyFindFalconeRequest: FindFalconeRequest = {
         token: "sdfjansdkfnsdlkfmasdkfjsd",
         planet_names: ["Sapir", "Donlon", "Enchai", "Pingasor"],
         vehicle_names: [
@@ -39,7 +38,7 @@ describe("MessageService", () => {
   });
 
   describe("#setTimeTaken()", () => {
-    const dummyTimeTaken: number = 230;
+    const dummyTimeTaken = 230;
     it("should call setTimeToken() with timeTaken as parameter", () => {
       spyOn(service, "setTimeTaken").and.callThrough();
       service.setTimeTaken(dummyTimeTaken);
@@ -50,7 +49,7 @@ describe("MessageService", () => {
 
   describe("#getFindFalconeRequest()", () => {
     it("should call getFindFalconeRequest()  and should return findFalconeRequest ", () => {
-      let dummyFindFalconeRequest: FindFalconeRequest = {
+      const dummyFindFalconeRequest: FindFalconeRequest = {
         token: "sdfjansdkfnsdlkfmasdkfjsd",
         planet_names: ["Sapir", "Donlon", "Enchai", "Pingasor"],
         vehicle_names: [
@@ -70,7 +69,7 @@ describe("MessageService", () => {
   });
 
   describe("#getTimeTaken()", () => {
-    const dummyTimeTaken: number = 230;
+    const dummyTimeTaken = 230;
     it("should call setTimeToken() and  should return timeTaken", () => {
       spyOn(service, "getTimeTakenToFindFalcone").and.returnValue(
         dummyTimeTaken

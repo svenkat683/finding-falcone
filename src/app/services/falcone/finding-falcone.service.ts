@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { PlanetIntf } from "../../models/planet";
 import { VehicleIntf } from "../../models/vehicle";
-import { FindFalconeRequest } from "../../models/findingFolconeRequest";
+import { FindFalconeRequest } from "../../models/findingFalconeRequest";
 import { environment } from "../../../environments/environment";
 import { Observable, throwError } from "rxjs";
 import { Token } from "@angular/compiler";
@@ -32,7 +32,7 @@ export class FindingFalconeService {
     return this.http.post<Token>(this.apiBaseUrl + "token", "", httpOptions);
   }
 
-  findngFalcone(
+  findingFalcone(
     falconeFindRequest: FindFalconeRequest
   ): Observable<FindFalconeResponseInf> {
     const httpHeaders = {

@@ -3,10 +3,9 @@ import { Router } from "@angular/router";
 import { FindingFalconeService } from "../../services/falcone/finding-falcone.service";
 import { PlanetIntf } from "src/app/models/planet";
 import { VehicleIntf } from "src/app/models/vehicle";
-import { FindFalconeRequest } from "src/app/models/findingFolconeRequest";
+import { FindFalconeRequest } from "src/app/models/findingFalconeRequest";
 import { SelectedDestination } from "src/app/models/selectedDestination";
 import { MessageService } from "src/app/services/message/message.service";
-import { FindFalconeResponseInf } from "src/app/models/findFalconeResponse";
 
 @Component({
   selector: "app-finding-falcone",
@@ -21,7 +20,7 @@ export class FindingFalconeComponent implements OnInit {
   selectedDestinations: SelectedDestination[] = [];
   timeToReachDestination = 0;
   constructor(
-    private findFacloneHttp: FindingFalconeService,
+    private findFalconeHttp: FindingFalconeService,
     private router: Router,
     public messageService: MessageService
   ) {}
@@ -33,7 +32,7 @@ export class FindingFalconeComponent implements OnInit {
   }
 
   getPlanets() {
-    this.findFacloneHttp.getPlanets().subscribe(
+    this.findFalconeHttp.getPlanets().subscribe(
       (planets: PlanetIntf[]) => {
         console.log("Planets", planets);
         this.planets = [...planets];
@@ -46,7 +45,7 @@ export class FindingFalconeComponent implements OnInit {
   }
 
   getVehicles() {
-    this.findFacloneHttp.getVehicles().subscribe(
+    this.findFalconeHttp.getVehicles().subscribe(
       (vehicles: VehicleIntf[]) => {
         console.log("vehicles", vehicles);
         this.vehicles = vehicles;
@@ -58,7 +57,7 @@ export class FindingFalconeComponent implements OnInit {
   }
 
   getToken() {
-    this.findFacloneHttp.getToken().subscribe(
+    this.findFalconeHttp.getToken().subscribe(
       (response: any) => {
         this.token = response.token;
       },
@@ -89,7 +88,6 @@ export class FindingFalconeComponent implements OnInit {
           selectedDestination.destinationNumber
       );
     }
-
     this.selectedDestinations = [
       ...this.selectedDestinations,
       selectedDestination

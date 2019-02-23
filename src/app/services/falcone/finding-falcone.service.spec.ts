@@ -7,9 +7,8 @@ import { FindingFalconeService } from "./finding-falcone.service";
 import { PlanetIntf } from "src/app/models/planet";
 import { VehicleIntf } from "src/app/models/vehicle";
 import { Token } from "src/app/models/token";
-import { FindFalconeRequest } from "src/app/models/findingFolconeRequest";
+import { FindFalconeRequest } from "src/app/models/findingFalconeRequest";
 import { FindFalconeResponseInf } from "src/app/models/findFalconeResponse";
-import { HttpHeaders } from "@angular/common/http";
 
 describe("FindingFalconeService", () => {
   let injector: TestBed;
@@ -27,8 +26,7 @@ describe("FindingFalconeService", () => {
     httpMock = injector.get(HttpTestingController);
   });
 
-  it("should create FindingFalocne Service", () => {
-    const service = TestBed.get(FindingFalconeService);
+  it("should create FindingFalcone Service", () => {
     expect(service).toBeTruthy();
   });
 
@@ -111,7 +109,7 @@ describe("FindingFalconeService", () => {
       };
       const apiBaseUrl = service.apiBaseUrl;
       service
-        .findngFalcone(dummyRequest)
+        .findingFalcone(dummyRequest)
         .subscribe((res: FindFalconeResponseInf) => {
           expect(res.status).toBe(dummyResponse.status);
           expect(res.planet_name).toBe(dummyResponse.planet_name);

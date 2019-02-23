@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MessageService } from "src/app/services/message/message.service";
 import { FindFalconeResponseInf } from "src/app/models/findFalconeResponse";
-import { FindFalconeRequest } from "src/app/models/findingFolconeRequest";
+import { FindFalconeRequest } from "src/app/models/findingFalconeRequest";
 import { FindingFalconeService } from "src/app/services/falcone/finding-falcone.service";
 
 @Component({
@@ -28,16 +28,16 @@ export class ResultComponent implements OnInit {
   findFalcone() {
     const findFalconeRequest: FindFalconeRequest = this.messageService.getFindFalconeRequest();
     this.findingFalconeService
-      .findngFalcone(findFalconeRequest)
-      .subscribe((findFalconeRespnse: FindFalconeResponseInf) => {
-        this.planetFoundStatus = findFalconeRespnse.status
-          ? findFalconeRespnse.status
+      .findingFalcone(findFalconeRequest)
+      .subscribe((findFalconeResponse: FindFalconeResponseInf) => {
+        this.planetFoundStatus = findFalconeResponse.status
+          ? findFalconeResponse.status
           : "";
-        this.planetFound = findFalconeRespnse.planet_name
-          ? findFalconeRespnse.planet_name
+        this.planetFound = findFalconeResponse.planet_name
+          ? findFalconeResponse.planet_name
           : "";
-        this.planetFoundError = findFalconeRespnse.error
-          ? findFalconeRespnse.error
+        this.planetFoundError = findFalconeResponse.error
+          ? findFalconeResponse.error
           : "";
       });
   }

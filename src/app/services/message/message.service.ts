@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FindFalconeResponseInf } from "src/app/models/findFalconeResponse";
-import { FindFalconeRequest } from "src/app/models/findingFolconeRequest";
+import { FindFalconeRequest } from "src/app/models/findingFalconeRequest";
 
 @Injectable({
   providedIn: "root"
