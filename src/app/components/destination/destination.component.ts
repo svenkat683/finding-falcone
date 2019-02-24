@@ -87,6 +87,6 @@ export class DestinationComponent implements OnInit, AfterViewChecked {
   }
 
   findPropertyByName(property: any, originalObject: any) {
-    return originalObject.find((object) => object.name === property);
+    return originalObject.find(object => object.name === property);
   }
 }
