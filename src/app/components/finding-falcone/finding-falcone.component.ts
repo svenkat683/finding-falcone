@@ -38,7 +38,7 @@ export class FindingFalconeComponent implements OnInit {
         this.planets = [...planets];
         this.availablePlanets = [...planets];
       },
-      (error) => {
+      error => {
         console.error(error);
       }
     );
@@ -50,7 +50,7 @@ export class FindingFalconeComponent implements OnInit {
         console.log("vehicles", vehicles);
         this.vehicles = vehicles;
       },
-      (error) => {
+      error => {
         console.log(error);
       }
     );
@@ -61,7 +61,7 @@ export class FindingFalconeComponent implements OnInit {
       (response: any) => {
         this.token = response.token;
       },
-      (error) => {
+      error => {
         console.log(error);
       }
     );
@@ -77,13 +77,13 @@ export class FindingFalconeComponent implements OnInit {
   organizeSelectedDestinations(selectedDestination: SelectedDestination) {
     if (
       this.selectedDestinations.find(
-        (destination) =>
+        destination =>
           destination.destinationNumber ===
           selectedDestination.destinationNumber
       )
     ) {
       this.selectedDestinations = this.selectedDestinations.filter(
-        (destination) =>
+        destination =>
           destination.destinationNumber !==
           selectedDestination.destinationNumber
       );
@@ -109,10 +109,10 @@ export class FindingFalconeComponent implements OnInit {
     let timeTaken = 0;
     this.selectedDestinations.map((destination: SelectedDestination) => {
       const planet = this.planets.find(
-        (singlePlanet) => singlePlanet.name === destination.planetName
+        singlePlanet => singlePlanet.name === destination.planetName
       );
       const vehicle = this.vehicles.find(
-        (singleVehicle) => singleVehicle.name === destination.vehicleName
+        singleVehicle => singleVehicle.name === destination.vehicleName
       );
       timeTaken += planet.distance / vehicle.speed;
     });
@@ -121,7 +121,7 @@ export class FindingFalconeComponent implements OnInit {
 
   organizeAvailablePlanets(selectedDestination: SelectedDestination) {
     this.availablePlanets = this.availablePlanets.filter(
-      (planet) => planet.name !== selectedDestination.planetName
+      planet => planet.name !== selectedDestination.planetName
     );
   }
 
@@ -137,11 +137,8 @@ export class FindingFalconeComponent implements OnInit {
     findFalconeRequest.planet_names = [...planet_names];
     findFalconeRequest.vehicle_names = [...vehicle_names];
 
-    console.log("findFalconeRequest: ", this.token);
-
     this.messageService.setFindFalconeRequest(findFalconeRequest);
     this.messageService.setTimeTaken(this.timeToReachDestination);
     this.router.navigate(["/result"]);
-    console.log("findFalconeResponse", findFalconeRequest);
   }
 }

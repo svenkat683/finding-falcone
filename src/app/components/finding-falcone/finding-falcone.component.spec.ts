@@ -10,10 +10,15 @@ import { VehicleIntf } from "src/app/models/vehicle";
 import { of } from "rxjs";
 import { Token } from "src/app/models/token";
 import { SelectedDestination } from "src/app/models/selectedDestination";
+import { MessageService } from "src/app/services/message/message.service";
+import { Router } from "@angular/router";
 
 describe("FindingFalconeComponent", () => {
   let component: FindingFalconeComponent;
   let fixture: ComponentFixture<FindingFalconeComponent>;
+  let router = {
+    navigate: jasmine.createSpy("navigate")
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -23,7 +28,7 @@ describe("FindingFalconeComponent", () => {
         RouterTestingModule
       ],
       declarations: [FindingFalconeComponent, DestinationComponent],
-      providers: [FindingFalconeService]
+      providers: [FindingFalconeService, { provide: Router, useValue: router }]
     }).compileComponents();
   }));
 
@@ -181,6 +186,81 @@ describe("FindingFalconeComponent", () => {
       );
       component.organizeAvailableVehicles(dummySelectedDestination);
       expect(component.vehicles[0].total_no).toEqual(1);
+    });
+  });
+
+  describe("#getTimeTakenToReachDestination", () => {
+    it("should return time taken to reach the destination", () => {
+      component.selectedDestinations = [
+        {
+          destinationNumber: 1,
+          planetName: "Sapir",
+          vehicleName: "Space pod"
+        }
+      ];
+
+      component.planets = [
+        { name: "Donlon", distance: 100 },
+        { name: "Enchai", distance: 200 },
+        { name: "Jebing", distance: 300 },
+        { name: "Sapir", distance: 400 },
+        { name: "Lerbin", distance: 500 },
+        { name: "Pingasor", distance: 600 }
+      ];
+
+      component.vehicles = [
+        { name: "Space pod", total_no: 2, max_distance: 200, speed: 2 },
+        { name: "Space rocket", total_no: 1, max_distance: 300, speed: 4 },
+        { name: "Space shuttle", total_no: 1, max_distance: 400, speed: 5 },
+        { name: "Space ship", total_no: 2, max_distance: 600, speed: 10 }
+      ];
+      const timeTaken = component.getTimeTakenToReachDestination();
+      expect(timeTaken).toEqual(200);
+    });
+  });
+
+  describe("#findFalcone", () => {
+    it("should call #setFindFalconeRequest, #setTimeTaken message service method", () => {
+      component.selectedDestinations = [
+        {
+          destinationNumber: 1,
+          planetName: "Sapir",
+          vehicleName: "Space pod"
+        },
+        {
+          destinationNumber: 1,
+          planetName: "Jebing",
+          vehicleName: "Space rocket"
+        },
+        {
+          destinationNumber: 3,
+          planetName: "Lerbin",
+          vehicleName: "Space pod"
+        },
+        {
+          destinationNumber: 4,
+          planetName: "Pingasor",
+          vehicleName: "Space ship"
+        }
+      ];
+
+      const messageService = fixture.debugElement.injector.get(MessageService);
+      messageService.findFalconeRequest = {
+        token: "sdfjadskfnsldkfnasfnkd",
+        planet_names: ["Lerbin", "Donlon", "Enchai", "Pingasor"],
+        vehicle_names: ["Space Pod", "Space pod", "Space ship", "Space ship"]
+      };
+      messageService.timeTaken = 260;
+      spyOn(messageService, "setFindFalconeRequest");
+      spyOn(messageService, "setTimeTaken");
+      component.findFalcone();
+      expect(component.messageService.setFindFalconeRequest).toHaveBeenCalled();
+      expect(component.messageService.setTimeTaken).toHaveBeenCalled();
+      expect(component.messageService.findFalconeRequest).toBe(
+        messageService.findFalconeRequest
+      );
+      expect(component.messageService.timeTaken).toEqual(260);
+      expect(router.navigate).toHaveBeenCalledWith(["/result"]);
     });
   });
 });
