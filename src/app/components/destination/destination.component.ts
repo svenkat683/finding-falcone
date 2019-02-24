@@ -71,7 +71,6 @@ export class DestinationComponent implements OnInit, AfterViewChecked {
     this.isVehicleValidErrorMessage = false;
     const selectedVehicle = this.destinationFormGroup.value.vehicle;
     const selectedPlanetName = this.destinationFormGroup.value.planetName;
-    console.log("planet", this.totalPlanets);
     const vehicle: VehicleIntf = this.findPropertyByName(
       selectedVehicle,
       this.vehicles
@@ -88,6 +87,6 @@ export class DestinationComponent implements OnInit, AfterViewChecked {
   }
 
   findPropertyByName(property: any, originalObject: any) {
-    return originalObject.find(object => object.name === property);
+    return originalObject.find((object) => object.name === property);
   }
 }

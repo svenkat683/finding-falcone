@@ -5,6 +5,11 @@ import { FindingFalconeComponent } from "./finding-falcone.component";
 import { DestinationComponent } from "../destination/destination.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FindingFalconeService } from "src/app/services/falcone/finding-falcone.service";
+import { PlanetIntf } from "src/app/models/planet";
+import { VehicleIntf } from "src/app/models/vehicle";
+import { of } from "rxjs";
+import { Token } from "src/app/models/token";
+import { SelectedDestination } from "src/app/models/selectedDestination";
 
 describe("FindingFalconeComponent", () => {
   let component: FindingFalconeComponent;
@@ -17,13 +22,15 @@ describe("FindingFalconeComponent", () => {
         HttpClientTestingModule,
         RouterTestingModule
       ],
-      declarations: [FindingFalconeComponent, DestinationComponent]
+      declarations: [FindingFalconeComponent, DestinationComponent],
+      providers: [FindingFalconeService]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FindingFalconeComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
@@ -56,6 +63,124 @@ describe("FindingFalconeComponent", () => {
         expect(component.getVehicles).toHaveBeenCalled();
         expect(component.getToken).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe("#getPlanets", () => {
+    it("should use #planets from the #findingFalcone service", () => {
+      const fakePlanets: PlanetIntf[] = [
+        { name: "Donlon", distance: 100 },
+        { name: "Enchai", distance: 200 },
+        { name: "Jebing", distance: 300 },
+        { name: "Sapir", distance: 400 },
+        { name: "Lerbin", distance: 500 },
+        { name: "Pingasor", distance: 600 }
+      ];
+      const findingFalconeService = fixture.debugElement.injector.get(
+        FindingFalconeService
+      );
+      spyOn(findingFalconeService, "getPlanets").and.returnValue(
+        of(fakePlanets)
+      );
+      component.ngOnInit();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(findingFalconeService.getPlanets).toHaveBeenCalled();
+        expect(component.availablePlanets).toEqual(fakePlanets);
+        expect(component.planets).toEqual(fakePlanets);
+      });
+    });
+  });
+
+  describe("#getPlanets", () => {
+    it("should use #planets from the #findingFalcone service", () => {
+      const fakeVehicles: VehicleIntf[] = [
+        { name: "Space pod", total_no: 2, max_distance: 200, speed: 2 },
+        { name: "Space rocket", total_no: 1, max_distance: 300, speed: 4 },
+        { name: "Space shuttle", total_no: 1, max_distance: 400, speed: 5 },
+        { name: "Space ship", total_no: 2, max_distance: 600, speed: 10 }
+      ];
+      const findingFalconeService = fixture.debugElement.injector.get(
+        FindingFalconeService
+      );
+      spyOn(findingFalconeService, "getVehicles").and.returnValue(
+        of(fakeVehicles)
+      );
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(findingFalconeService.getVehicles).toHaveBeenCalled();
+        expect(component.vehicles).toEqual(fakeVehicles);
+      });
+      component.ngOnInit();
+    });
+  });
+
+  describe("#getToken", () => {
+    it("should use #planets from the #findingFalcone service", () => {
+      const fakeToken: Token = {
+        token: "dfasdmkflsdmflsdmfsdlfkmalsdf"
+      };
+      const findingFalconeService = fixture.debugElement.injector.get(
+        FindingFalconeService
+      );
+      spyOn(findingFalconeService, "getToken").and.returnValue(of(fakeToken));
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(findingFalconeService.getToken).toHaveBeenCalled();
+        expect(component.token).toEqual(fakeToken.token);
+      });
+      component.ngOnInit();
+    });
+  });
+
+  describe("#organizeAvailablePlanets", () => {
+    it("should filter the availablePlanets when one destination given as input", () => {
+      const dummyInput: SelectedDestination = {
+        destinationNumber: 1,
+        vehicleName: "Space Pod",
+        planetName: "Donlon"
+      };
+      component.ngOnInit();
+      const before = (component.availablePlanets = [
+        { name: "Donlon", distance: 100 },
+        { name: "Enchai", distance: 200 },
+        { name: "Jebing", distance: 300 },
+        { name: "Sapir", distance: 400 },
+        { name: "Lerbin", distance: 500 },
+        { name: "Pingasor", distance: 600 }
+      ]);
+      component.organizeAvailablePlanets(dummyInput);
+      expect(component.availablePlanets.length).toBeLessThan(before.length);
+    });
+  });
+
+  describe("#organizeSelectedDestinations", () => {
+    it("should push selectedDestination to selectedDestinations array if it's not presented.", () => {
+      const dummySelectedDestination: SelectedDestination = new SelectedDestination(
+        1,
+        "Donlon",
+        "Space Pod"
+      );
+      const before = (component.selectedDestinations = []);
+      component.organizeSelectedDestinations(dummySelectedDestination);
+      expect(component.selectedDestinations.length).toBeGreaterThan(
+        before.length
+      );
+    });
+  });
+
+  describe("#organizeAvailableVehicles", () => {
+    it("should decrement vehicle count if it's selected.", () => {
+      const beforeVehicleCount = (component.vehicles = [
+        { name: "Space pod", total_no: 2, max_distance: 200, speed: 2 }
+      ]);
+      const dummySelectedDestination: SelectedDestination = new SelectedDestination(
+        1,
+        "Donlon",
+        "Space pod"
+      );
+      component.organizeAvailableVehicles(dummySelectedDestination);
+      expect(component.vehicles[0].total_no).toEqual(1);
     });
   });
 });
