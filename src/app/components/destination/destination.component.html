@@ -25,14 +25,14 @@
             class="form-check-input"
             type="radio"
             formControlName="vehicle"
-            id="{{ vehicle.name + destinationNumber }}"
+            id="{{ vehicle.name + destinationIndex }}"
             value="{{ vehicle.name }}"
             (change)="onSelectVehicle($event)"
             [attr.disabled]="vehicle.total_no !== 0 ? null : ''"
           />
           <label
             class="form-check-label"
-            for="{{ vehicle.name + destinationNumber }}"
+            for="{{ vehicle.name + destinationIndex }}"
             disabled
             >{{ vehicle.name }} ({{ vehicle.total_no }})</label
           >
