@@ -8,8 +8,8 @@ Checkout http://finding-falcone.s3-website-us-east-1.amazonaws.com to view the s
 
 After cloning the code, run the following commands in the root of the project:
 
-1. Run `git clone --depth 1 https://github.com/svenkat683/finding-falcone-v2.git` to clone the repo.
-2. Run `npm install` inside your root folder to install all the dependencies.
+1. Run `git clone --depth 1 https://github.com/svenkat683/finding-falcone.git` to clone the repo.
+2. Run `npm install` to install all the dependencies.
 3. Run `npm start` and then navigate to http://localhost:4200
 
 ## Unit Tests:
