@@ -32,39 +32,22 @@ export class FindingFalconeComponent implements OnInit {
   }
 
   getPlanets() {
-    this.findFalconeHttp.getPlanets().subscribe(
-      (planets: PlanetIntf[]) => {
-        console.log("Planets", planets);
-        this.planets = [...planets];
-        this.availablePlanets = [...planets];
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    this.findFalconeHttp.getPlanets().subscribe((planets: PlanetIntf[]) => {
+      this.planets = [...planets];
+      this.availablePlanets = [...planets];
+    });
   }
 
   getVehicles() {
-    this.findFalconeHttp.getVehicles().subscribe(
-      (vehicles: VehicleIntf[]) => {
-        console.log("vehicles", vehicles);
-        this.vehicles = vehicles;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.findFalconeHttp.getVehicles().subscribe((vehicles: VehicleIntf[]) => {
+      this.vehicles = vehicles;
+    });
   }
 
   getToken() {
-    this.findFalconeHttp.getToken().subscribe(
-      (response: any) => {
-        this.token = response.token;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.findFalconeHttp.getToken().subscribe((response: any) => {
+      this.token = response.token;
+    });
   }
 
   onSelectedDestination(selectedDestination: SelectedDestination) {
