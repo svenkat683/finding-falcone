@@ -38,6 +38,11 @@
           >
         </div>
       </div>
+      <div class="error" *ngIf="isVehicleValidErrorMessage">
+        <p class="uk-text-danger">
+          Invalid vehicle. Vehicle range less the planet distance
+        </p>
+      </div>
     </div>
   </form>
 </div>
